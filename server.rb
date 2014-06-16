@@ -146,10 +146,12 @@ def run_tests(project)
 end
 
 get '/projects/:id/tests' do
+  content_type :json
   JSON(projects[params[:id]].tests.map { |test| test.name })
 end
 
 get '/projects/:id' do
+  content_type :json
   JSON(load_project(params[:id]).to_hash)
 end
 
@@ -159,11 +161,15 @@ get '/projects' do
   end.map do |id, project|
     { :id => id, :name => project.name }
   end
+
+  content_type :json
   JSON(projects)
 end
 
 get '/run/:id' do
   project = load_project(params[:id])
+
+  content_type :json
   JSON(run_tests(project))
 end
 
