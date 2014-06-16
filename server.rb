@@ -131,6 +131,10 @@ def run_tests(project)
     end
   end
 
+  success = results.values.all? {|server| server.all? {|test_result| test_result[1] == :ok }}
+
+  headers['X-Test-Result'] = (success ? '0' : '1')
+
   return {
     :project => project.name,
     :tests   => tests.map(&:name),
@@ -140,7 +144,8 @@ def run_tests(project)
         :name    => server.name,
         :results => tests.map { |test| r.fetch(test.id, nil) }
       }
-    end
+    end,
+    :success => success
   }
 
 end
