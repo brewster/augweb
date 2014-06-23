@@ -7,3 +7,8 @@ gem 'auger'
 gem 'railsless-deploy'
 gem 'rvm-capistrano'
 gem "shotgun"
+
+
+group :development do
+  gem 'pry'
+end
